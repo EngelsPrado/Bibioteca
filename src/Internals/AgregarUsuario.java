@@ -1,12 +1,11 @@
 package Internals;
 
 import Conexion.BaseDeDatos;
-<<<<<<< HEAD
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-=======
+
 import javax.swing.JOptionPane;
->>>>>>> 8e55f29d031b733a6ac532162a510d84a807f9c1
 
 public class AgregarUsuario extends javax.swing.JInternalFrame 
 {
