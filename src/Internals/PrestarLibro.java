@@ -67,7 +67,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame
         jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
 
         jButton1.setBackground(new java.awt.Color(49, 91, 150));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("PRESTAR");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
