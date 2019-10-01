@@ -4,6 +4,8 @@ import Conexion.BaseDeDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +20,25 @@ public class BuscarLibro extends javax.swing.JInternalFrame
     public void setC(BaseDeDatos c) 
     {
         this.c = c;
+        cargarCategorias();
+    }
+    
+    
+    private void cargarCategorias(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarCategorias()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   categoria.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +49,6 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jTextField3 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -36,6 +56,7 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        categoria = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Buscar Libro");
@@ -48,7 +69,6 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         jButton1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("BUSCAR");
-        jButton1.setActionCommand("BUSCAR");
         jButton1.setAutoscrolls(true);
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jButton1.setContentAreaFilled(false);
@@ -60,9 +80,6 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 440, 282, 38));
 
-        jTable1.setBackground(new java.awt.Color(49, 91, 150));
-        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 6));
-        jTable1.setForeground(new java.awt.Color(102, 102, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -83,17 +100,12 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         jTable1.setFocusCycleRoot(true);
         jTable1.setInheritsPopupMenu(true);
         jTable1.setRowSelectionAllowed(false);
-        jTable1.setSelectionForeground(new java.awt.Color(49, 91, 150));
+        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jTable1.setSurrendersFocusOnKeystroke(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 740, 200));
-
-        jTextField3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 190, 30));
 
         jTextField2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(102, 102, 102));
@@ -128,6 +140,9 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Internals/libro (2).png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 130, 100));
 
+        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+        jPanel1.add(categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 110, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,9 +160,10 @@ public class BuscarLibro extends javax.swing.JInternalFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextField1.getText().equals("")&&jTextField2.getText().equals("")&&jTextField3.getText().equals(""))
+        if(jTextField1.getText().equals("")&&jTextField2.getText().equals("") && categoria.getSelectedIndex()==0)
         {
-            JOptionPane.showMessageDialog(this, "Campo vacio detectado");
+            JOptionPane.showMessageDialog(this, "Debe proporcionar al menos un campo para la busqueda");
+            return;
         }
         else
         {
@@ -155,12 +171,10 @@ public class BuscarLibro extends javax.swing.JInternalFrame
             DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
             model.setRowCount(0);
             
-            int cat=0;
-            if(!jTextField3.getText().equals(""))
-                cat=Integer.parseInt(jTextField3.getText());
+  
             try
             {
-                r=c.buscarLibro("BuscarLibro(?,?,?)", jTextField1.getText(),jTextField2.getText(),cat).executeQuery();
+                r=c.buscarLibro("BuscarLibro(?,?,?)", jTextField1.getText(),jTextField2.getText(),categoria.getSelectedIndex()).executeQuery();
                 while(r.next())
                 {
                     Vector v=new Vector();
@@ -168,8 +182,8 @@ public class BuscarLibro extends javax.swing.JInternalFrame
                         v.add(r.getString(1));
                         v.add(r.getString(2));
                         v.add(r.getString(3));
-                        v.add(r.getInt(4));
-                        v.add(r.getInt(5));
+                        v.add(r.getString(4));
+                        v.add(r.getString(5));
                         v.add(r.getInt(6));
                         v.add(r.getString(7));
                         v.add(r.getInt(8));
@@ -188,6 +202,7 @@ public class BuscarLibro extends javax.swing.JInternalFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> categoria;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -199,6 +214,5 @@ public class BuscarLibro extends javax.swing.JInternalFrame
     private static javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
