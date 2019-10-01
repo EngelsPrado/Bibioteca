@@ -357,6 +357,16 @@ public class AgregarLibros extends javax.swing.JInternalFrame
             JOptionPane.showMessageDialog(this, "Campo vacio detectado","Advertencia",JOptionPane.WARNING_MESSAGE);
         else
         {
+            String con="";
+            int cont=0;
+            while(cont<Codigoftxt.getText().length()-1)
+            {
+                con+=(Codigoftxt.getText().charAt(cont));
+                cont++;
+            }
+            if(con.contains(" "))
+                JOptionPane.showMessageDialog(this, "Llene el codigo");
+            else{
             if(Idiomascmb.getSelectedItem()=="Seleccionar")//Estadocmb.getSelectedItem()=="Seleccionar")
             {
                 JOptionPane.showMessageDialog(this, "Seleccione algo en los combo box","Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -371,7 +381,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                 String fec=sdf.format(Fechajdc.getDate());
                 c.insertar_libros("InsertarLibros(?,?,?,?,?,?,?,?,?)",Codigoftxt.getText(),Titulotxt.getText(),fec,categoria.getSelectedIndex(),editorial.getSelectedIndex(),exi,idi,pag,Descripciontxa.getText());
             }
-        }
+        }}
     }//GEN-LAST:event_GuardarbtnActionPerformed
 
     private void TitulotxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TitulotxtKeyTyped

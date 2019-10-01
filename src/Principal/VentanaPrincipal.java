@@ -26,7 +26,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public VentanaPrincipal(boolean permiso) {
         initComponents();
-        System.out.println(permiso);
         if(!permiso){
             Usuariosmnu.setVisible(false);
             Librosmnu.setVisible(false);
@@ -45,9 +44,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public void setC(BaseDeDatos c) {
         this.c = c;
     }
-
-  
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,7 +102,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-<<<<<<< HEAD
                 .addGap(201, 201, 201)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(268, Short.MAX_VALUE))
@@ -116,18 +111,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 151, Short.MAX_VALUE))
-=======
-                .addGap(281, 281, 281)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
->>>>>>> 8e55f29d031b733a6ac532162a510d84a807f9c1
         );
 
         Menumnb.setBackground(new java.awt.Color(35, 53, 103));
