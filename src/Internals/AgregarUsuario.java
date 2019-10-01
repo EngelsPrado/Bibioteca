@@ -1,8 +1,12 @@
 package Internals;
 
 import Conexion.BaseDeDatos;
+<<<<<<< HEAD
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+=======
+import javax.swing.JOptionPane;
+>>>>>>> 8e55f29d031b733a6ac532162a510d84a807f9c1
 
 public class AgregarUsuario extends javax.swing.JInternalFrame 
 {
@@ -332,9 +336,11 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
             String contra= String.valueOf(pass.getPassword());
             
            if( c.ValidarUsuario(dni.getText(), user.getText(), md5.getMD5(contra),Pn.getText() ,Sn.getText() , Pa.getText(), Sa.getText(), dir.getText(), tel.getText()))
-                System.out.println("Creado");
+                           JOptionPane.showMessageDialog(this, "Usuario Creado","Advertencia",JOptionPane.WARNING_MESSAGE);
+
            else
-                System.out.println("No creado");
+                           JOptionPane.showMessageDialog(this, "Ya existe el usuario","Advertencia",JOptionPane.WARNING_MESSAGE);
+
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

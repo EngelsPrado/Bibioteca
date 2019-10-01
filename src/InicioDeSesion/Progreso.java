@@ -23,12 +23,18 @@ public class Progreso extends Thread{
     JProgressBar jProgressBar1; 
     BaseDeDatos bbdd;
     int cont=0;  
+    boolean permiso;
+    
     Progreso(JProgressBar jProgressBar1,Login login) {
       //To change body of generated methods, choose Tools | Templates.
       this.jProgressBar1=jProgressBar1;
       c=login;
     }
 
+    public void setPermiso(boolean permiso){
+       this.permiso=permiso;
+    }
+    
    public void setC(BaseDeDatos c){
        bbdd=c;
    }
@@ -50,8 +56,9 @@ public class Progreso extends Thread{
 //      h.setC(bbdd);
 //      h.setVisible(true);
 
-       VentanaPrincipal vt=new VentanaPrincipal();
+       VentanaPrincipal vt=new VentanaPrincipal(permiso);
         vt.setC(bbdd);
+      
        c.setVisible(false);
        vt.setVisible(true);
       

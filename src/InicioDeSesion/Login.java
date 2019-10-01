@@ -309,9 +309,10 @@ public class Login extends javax.swing.JFrame {
                 if (!user.getText().equalsIgnoreCase("sa") && !user.getText().equalsIgnoreCase("bib")) {
                     if (bbdd.conectarUsuario(user.getText(), md5.getMD5(c).toUpperCase())) {
 
-                        Progreso pr = new Progreso(jProgressBar1, this);
+                         Progreso pr = new Progreso(jProgressBar1, this);
                         pr.setC(bbdd);
-                        pr.start();
+                        pr.setPermiso(false);
+                        pr.start(); 
                         // Cliente_Principal cp=new Cliente_Principal();
                         //cp.setC(bbdd);
                         //cp.setVisible(true);
@@ -322,9 +323,16 @@ public class Login extends javax.swing.JFrame {
                 } else {
                    if (bbdd.conectar(user.getText(),c)) {
 
-                        Progreso pr = new Progreso(jProgressBar1, this);
-                        pr.setC(bbdd);
-                        pr.start();
+                        if(user.getText().equals("sa"))
+                        {
+                            Progreso pr = new Progreso(jProgressBar1, this);
+                            pr.setC(bbdd);
+                             pr.setPermiso(true);
+                            pr.start();
+                        }   
+                       
+                       
+               
                         // Cliente_Principal cp=new Cliente_Principal();
                         //cp.setC(bbdd);
                         //cp.setVisible(true);
