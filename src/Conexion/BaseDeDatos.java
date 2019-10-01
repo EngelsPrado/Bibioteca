@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class BaseDeDatos 
@@ -14,7 +16,7 @@ public class BaseDeDatos
     
     public BaseDeDatos()
     {
-        url="jdbc:sqlserver://localhost:1433;databaseName=Biblioteca;encrypt=true;trustServerCertificate=true";
+        url="jdbc:sqlserver://localhost:1433;databaseName=Biblioteca;integratedSecurity=true;encrypt=true;trustServerCertificate=true";
     }
     
     public boolean conectar(String user, String contra)
@@ -32,6 +34,47 @@ public class BaseDeDatos
             JOptionPane.showMessageDialog(null, "User / Login Incorrecto\nIntente de nuevo" + "","Mal ingresado",JOptionPane.ERROR_MESSAGE);
             return false;
         }
+    }
+    
+    public boolean conectarUsuario(String user, String contra) {
+        System.out.println("user "+user+" contra "+contra);
+        boolean valor;
+        try {
+             c=DriverManager.getConnection(url);
+            System.out.println("Entra");
+           valor=InicioSesion(user,contra);
+            System.out.println(valor);
+           if(valor==true)
+               return true;
+           
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "User / Login Incorrecto\nIntente de nuevo"
+                    + "", "Mal ingresado", JOptionPane.ERROR_MESSAGE);
+           
+        }
+         return false;
+    }
+
+    private boolean InicioSesion(String user, String pass) {
+        System.out.println("Dentro");
+        try {
+            CallableStatement sentencia = null;
+            sentencia = c.prepareCall("{? = call inicioSesion(?,?)}");
+            System.out.println("Dentro");
+            sentencia.registerOutParameter(1, Types.BOOLEAN);
+            sentencia.setString(2, user);
+            sentencia.setString(3, pass);
+            System.out.println("Dentro");
+            sentencia.execute();
+            //se recupera el resultado de la funcion pl/sql
+            boolean retorno = sentencia.getBoolean(1);
+            System.out.println("Valor"+retorno);
+            return retorno;
+        } catch (SQLException ex) {
+            Logger.getLogger(BaseDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return false;
     }
     
     public CallableStatement getConexion(String procedimiento)

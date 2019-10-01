@@ -11,7 +11,7 @@ public class Login extends javax.swing.JFrame {
 
     BaseDeDatos bbdd;
     int cont = 0;
-   
+    MD5 md5 = new MD5(); 
 
     public Login() {
         initComponents();
@@ -289,34 +289,48 @@ public class Login extends javax.swing.JFrame {
         String c=new String(pass);
         bbdd=new BaseDeDatos();
             
-        if(user.getText().equals(""))
-        {
+       
+        if (user.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingresar Valor en Campo Login");
-        }else
-        {
-            if(c.equals(""))
-            {
+        } else {
+            if (c.equals("")) {
                 JOptionPane.showMessageDialog(null, "Ingresar Valor en Campo Password");
-            }else
-            {
-                if(bbdd.conectar(user.getText(), c))
-                {
-                    Progreso l=new Progreso(jProgressBar1,this);
-                    l.setC(bbdd);
-                    l.start();
-                }
-                else
-                {
-                    if(cont==4)
-                    {
-                        JOptionPane.showMessageDialog(null,"Error","Error",JOptionPane.ERROR_MESSAGE);
-                        cont=0;
-                        this.dispose();
+            } else {
+                if (cont == 3) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    else
-                    {
-                        cont++;
-                        JOptionPane.showMessageDialog(this,"Le quedan" + " " + (5-cont) + " intentos","Advertecia",JOptionPane.WARNING_MESSAGE);
+                    cont = 0;
+                    return;
+                }
+
+                if (!user.getText().equalsIgnoreCase("sa") && !user.getText().equalsIgnoreCase("bib")) {
+                    if (bbdd.conectarUsuario(user.getText(), md5.getMD5(c).toUpperCase())) {
+
+                        Progreso pr = new Progreso(jProgressBar1, this);
+                        pr.setC(bbdd);
+                        pr.start();
+                        // Cliente_Principal cp=new Cliente_Principal();
+                        //cp.setC(bbdd);
+                        //cp.setVisible(true);
+
+                    } else {
+                        intentos.setText("Intentos: " + (++cont));
+                    }
+                } else {
+                   if (bbdd.conectar(user.getText(),c)) {
+
+                        Progreso pr = new Progreso(jProgressBar1, this);
+                        pr.setC(bbdd);
+                        pr.start();
+                        // Cliente_Principal cp=new Cliente_Principal();
+                        //cp.setC(bbdd);
+                        //cp.setVisible(true);
+
+                    } else {
+                        intentos.setText("Intentos: " + (++cont));
                     }
                 }
             }

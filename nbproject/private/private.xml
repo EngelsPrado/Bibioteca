@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/50575/Documents/Proyecto_Biblioteca/src/Principal/VentanaPrincipal.java</file>
-            <file>file:/C:/Users/50575/Documents/Proyecto_Biblioteca/src/InicioDeSesion/Login.java</file>
+            <file>file:/C:/Users/50575/Documents/Proyecto_Biblioteca/src/Internals/BorrarRevista.java</file>
+            <file>file:/C:/Users/50575/Documents/Proyecto_Biblioteca/src/Internals/ModificarRevistas.java</file>
+            <file>file:/C:/Users/50575/Documents/Proyecto_Biblioteca/src/Internals/AgregarLibros.java</file>
+            <file>file:/C:/Users/50575/Documents/Proyecto_Biblioteca/src/Internals/BuscarRevista.java</file>
+            <file>file:/C:/Users/50575/Documents/Proyecto_Biblioteca/src/Internals/BorrarLibros.java</file>
         </group>
     </open-files>
 </project-private>
