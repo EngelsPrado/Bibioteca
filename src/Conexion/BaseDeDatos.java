@@ -14,7 +14,7 @@ public class BaseDeDatos
     
     public BaseDeDatos()
     {
-        url="jdbc:sqlserver://192.168.137.160:1433;databaseName=Biblioteca;encrypt=true;trustServerCertificate=true";
+        url="jdbc:sqlserver://localhost:1433;databaseName=Biblioteca;encrypt=true;trustServerCertificate=true";
     }
     
     public boolean conectar(String user, String contra)
@@ -325,25 +325,20 @@ public class BaseDeDatos
         } 
     }
     
-    public boolean CrearUsuarios(String cedula,String usu,String contra,String pn,String sn,String pa,String sa,String direccion,String telefono)
+    public boolean ValidarUsuario(String cedula,String usu,String contra,String pn,String sn,String pa,String sa,String direccion,String telefono)
     {
         try 
         {
             CallableStatement sentencia = null;
-            sentencia=c.prepareCall("{? = call CrearUsuarios(?,?,?,?,?,?,?,?,?)}");
+            sentencia=c.prepareCall("{? = call ValidarUsuario(?)}");
             sentencia.registerOutParameter(1,Types.BOOLEAN);
-            sentencia.setString(2,cedula);
-            sentencia.setString(3,usu);
-            sentencia.setString(4,contra);
-            sentencia.setString(5,pn);
-            sentencia.setString(6,sn);
-            sentencia.setString(7,pa);
-            sentencia.setString(8,sa);
-            sentencia.setString(9,direccion);
-            sentencia.setString(10,telefono);
+            sentencia.setString(2,usu);
+          
             
             sentencia.execute();
             boolean retorno=sentencia.getBoolean(1);
+            if(retorno)
+                CrearUsuarios(cedula,usu,contra,pn,sn,pa,sa,direccion,telefono);
             JOptionPane.showMessageDialog(null, "Peticion Realizada");
             return retorno;
             
@@ -352,5 +347,35 @@ public class BaseDeDatos
             JOptionPane.showMessageDialog(null, "Error, No se puede modificar\n"+ex.getMessage());
         } 
         return false;
+    }
+    
+    
+    public void CrearUsuarios(String cedula,String usu,String contra,String pn,String sn,String pa,String sa,String direccion,String telefono)
+    {
+        try 
+        {
+            CallableStatement sentencia = null;
+            sentencia=c.prepareCall("{call InsertarUsuario(?,?,?,?,?,?,?,?,?)}");
+            
+            sentencia.setString(1,cedula);
+            sentencia.setString(2,usu);
+            sentencia.setString(3,contra);
+            sentencia.setString(4,pn);
+            sentencia.setString(5,sn);
+            sentencia.setString(6,pa);
+            sentencia.setString(7,sa);
+            sentencia.setString(8,direccion);
+            sentencia.setString(9,telefono);
+            
+            sentencia.execute();
+            boolean retorno=sentencia.getBoolean(1);
+            JOptionPane.showMessageDialog(null, "Peticion Realizada");
+      
+            
+        }catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error, No se puede modificar\n"+ex.getMessage());
+        } 
+      
     }
 }
