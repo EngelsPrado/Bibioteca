@@ -46,6 +46,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
                 g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
             }
         };
+        jLabel1 = new javax.swing.JLabel();
         Menumnb = new javax.swing.JMenuBar();
         Usuariosmnu = new javax.swing.JMenu();
         AgregarUmni = new javax.swing.JMenuItem();
@@ -73,18 +74,35 @@ public class VentanaPrincipal extends javax.swing.JFrame
         AcercaDemnu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(35, 53, 103));
         setResizable(false);
+
+        jDesktopPane1.setBackground(new java.awt.Color(35, 53, 103));
+        jDesktopPane1.setForeground(new java.awt.Color(35, 53, 103));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal/buscar.png"))); // NOI18N
+
+        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 930, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(201, 201, 201)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        Menumnb.setBackground(new java.awt.Color(35, 53, 103));
+        Menumnb.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 53, 103), 2));
+        Menumnb.setForeground(new java.awt.Color(35, 53, 103));
 
         Usuariosmnu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Icono Usuarios.png"))); // NOI18N
         Usuariosmnu.setText("Usuarios");
@@ -266,11 +284,11 @@ public class VentanaPrincipal extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -433,6 +451,7 @@ public class VentanaPrincipal extends javax.swing.JFrame
     private javax.swing.JMenuItem VerLibrosmni;
     private javax.swing.JMenuItem VerRevistasmni;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
