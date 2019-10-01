@@ -19,19 +19,34 @@ import javax.swing.ImageIcon;
 import java.awt.Graphics;
 import java.awt.Image;
 
-public class VentanaPrincipal extends javax.swing.JFrame 
-{
-     BaseDeDatos c;
-    public VentanaPrincipal() 
-    {
+public class VentanaPrincipal extends javax.swing.JFrame {
+
+    BaseDeDatos c;
+    boolean permiso;
+
+    public VentanaPrincipal(boolean permiso) {
+        initComponents();
+        System.out.println(permiso);
+        if(!permiso){
+            Usuariosmnu.setVisible(false);
+            Librosmnu.setVisible(false);
+            Revistasmnu.setVisible(false);
+            Prestarmnu.setVisible(false);
+        }
+        
+        this.setLocationRelativeTo(null);
+    }
+    
+    public VentanaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
-    public void setC(BaseDeDatos c) 
-    {
+    public void setC(BaseDeDatos c) {
         this.c = c;
     }
+
+  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -75,11 +90,13 @@ public class VentanaPrincipal extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(35, 53, 103));
+        setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
 
         jDesktopPane1.setBackground(new java.awt.Color(35, 53, 103));
         jDesktopPane1.setForeground(new java.awt.Color(35, 53, 103));
 
+        jLabel1.setBackground(new java.awt.Color(35, 53, 103));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Principal/buscar.png"))); // NOI18N
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -89,15 +106,16 @@ public class VentanaPrincipal extends javax.swing.JFrame
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addGap(281, 281, 281)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Menumnb.setBackground(new java.awt.Color(35, 53, 103));
@@ -295,84 +313,98 @@ public class VentanaPrincipal extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerLibrosmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerLibrosmniActionPerformed
-        VerLibros vl=new VerLibros();
+
+        VerLibros vl = new VerLibros();
         jDesktopPane1.add(vl);
         vl.setVisible(true);
         vl.setDatos(c);
     }//GEN-LAST:event_VerLibrosmniActionPerformed
 
     private void VerRevistasmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerRevistasmniActionPerformed
-        VerRevistas vr=new VerRevistas();
+        VerRevistas vr = new VerRevistas();
         jDesktopPane1.add(vr);
         vr.setVisible(true);
         vr.setDatos(c);
     }//GEN-LAST:event_VerRevistasmniActionPerformed
 
     private void AgregarLmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarLmniActionPerformed
-        AgregarLibros al=new AgregarLibros();
-        jDesktopPane1.add(al);
-        al.setVisible(true);
-        al.setC(c);
+        if (!permiso) {
+            AgregarLibros al = new AgregarLibros();
+            jDesktopPane1.add(al);
+            al.setVisible(true);
+            al.setC(c);
+        }
     }//GEN-LAST:event_AgregarLmniActionPerformed
 
     private void EliminarLmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarLmniActionPerformed
-        BorrarLibros bl=new BorrarLibros();
-        jDesktopPane1.add(bl);
-        bl.setVisible(true);
-        bl.setC(c);
+        if (!permiso) {
+            BorrarLibros bl = new BorrarLibros();
+            jDesktopPane1.add(bl);
+            bl.setVisible(true);
+            bl.setC(c);
+        }
     }//GEN-LAST:event_EliminarLmniActionPerformed
 
     private void ModificarLmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarLmniActionPerformed
-        ModificarLibros ml=new ModificarLibros();
-        jDesktopPane1.add(ml);
-        ml.setVisible(true);
-        ml.setC(c);
+
+        if (!permiso) {
+            ModificarLibros ml = new ModificarLibros();
+            jDesktopPane1.add(ml);
+            ml.setVisible(true);
+            ml.setC(c);
+        }
     }//GEN-LAST:event_ModificarLmniActionPerformed
 
     private void AgregarRmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarRmniActionPerformed
-        AgregarRevistas ar=new AgregarRevistas();
+        if(!permiso){
+            AgregarRevistas ar = new AgregarRevistas();
         jDesktopPane1.add(ar);
         ar.setVisible(true);
         ar.setC(c);
+        }
     }//GEN-LAST:event_AgregarRmniActionPerformed
 
     private void EliminarRmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarRmniActionPerformed
-        BorrarRevista br=new BorrarRevista();
+       if(!permiso){
+            BorrarRevista br = new BorrarRevista();
         jDesktopPane1.add(br);
         br.setVisible(true);
         br.setC(c);
+       }
     }//GEN-LAST:event_EliminarRmniActionPerformed
 
     private void ModificarRmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarRmniActionPerformed
-        ModificarRevistas mr=new ModificarRevistas();
+       if(!permiso){
+            ModificarRevistas mr = new ModificarRevistas();
         jDesktopPane1.add(mr);
         mr.setVisible(true);
         mr.setC(c);
+       }
     }//GEN-LAST:event_ModificarRmniActionPerformed
 
     private void LibrosmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LibrosmniActionPerformed
-        BuscarLibro bl=new BuscarLibro();
+        BuscarLibro bl = new BuscarLibro();
         jDesktopPane1.add(bl);
         bl.setVisible(true);
         bl.setC(c);
     }//GEN-LAST:event_LibrosmniActionPerformed
 
     private void RevistamniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevistamniActionPerformed
-        BuscarRevista br=new BuscarRevista();
+        BuscarRevista br = new BuscarRevista();
         jDesktopPane1.add(br);
         br.setVisible(true);
         br.setC(c);
     }//GEN-LAST:event_RevistamniActionPerformed
 
     private void PrestarLmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrestarLmniActionPerformed
-        PrestarLibro pl=new PrestarLibro();
+        PrestarLibro pl = new PrestarLibro();
         jDesktopPane1.add(pl);
         pl.setVisible(true);
         pl.setC(c);
     }//GEN-LAST:event_PrestarLmniActionPerformed
 
     private void PrestarRmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrestarRmniActionPerformed
-        PrestarRevista pr=new PrestarRevista();
+        PrestarRevista pr = new PrestarRevista();
         jDesktopPane1.add(pr);
         pr.setVisible(true);
         pr.setC(c);
@@ -383,14 +415,14 @@ public class VentanaPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ListaUsuarios lu=new ListaUsuarios();
+        ListaUsuarios lu = new ListaUsuarios();
         jDesktopPane1.add(lu);
         lu.setVisible(true);
         lu.setDatos(c);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void AgregarUmniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarUmniActionPerformed
-        AgregarUsuario au=new AgregarUsuario();
+        AgregarUsuario au = new AgregarUsuario();
         jDesktopPane1.add(au);
         au.setVisible(true);
         au.setC(c);
