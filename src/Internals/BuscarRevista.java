@@ -4,6 +4,8 @@ import Conexion.BaseDeDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +20,7 @@ public class BuscarRevista extends javax.swing.JInternalFrame
     public void setC(BaseDeDatos c) 
     {
         this.c = c;
+        cargarCategorias();
     }
 
     @SuppressWarnings("unchecked")
@@ -30,8 +33,8 @@ public class BuscarRevista extends javax.swing.JInternalFrame
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        categoria = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Buscar Revista");
@@ -72,6 +75,8 @@ public class BuscarRevista extends javax.swing.JInternalFrame
             }
         });
 
+        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,7 +95,8 @@ public class BuscarRevista extends javax.swing.JInternalFrame
                                 .addGap(27, 27, 27)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -108,8 +114,8 @@ public class BuscarRevista extends javax.swing.JInternalFrame
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
@@ -119,8 +125,26 @@ public class BuscarRevista extends javax.swing.JInternalFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+     private void cargarCategorias(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarCategoriasRevistas()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   categoria.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextField1.getText().equals("")&&jTextField2.getText().equals(""))
+        if(categoria.getSelectedIndex()==0 && jTextField1.getText().equals(""))
         {
             JOptionPane.showMessageDialog(this,"Campos vacios detectados");
         }
@@ -130,12 +154,11 @@ public class BuscarRevista extends javax.swing.JInternalFrame
             DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
             model.setRowCount(0);
             
-            int cat=0;
-            if(!jTextField2.getText().equals(""))
-                cat=Integer.parseInt(jTextField2.getText());
+           
+          
             try
             {
-                res=c.buscarRevista("buscarRevista(?,?)", jTextField1.getText(),cat).executeQuery();
+                res=c.buscarRevista("buscarRevista(?,?)", jTextField1.getText(),categoria.getSelectedIndex()).executeQuery();
                 while(res.next())
                 {
                     Vector v=new Vector();
@@ -164,6 +187,7 @@ public class BuscarRevista extends javax.swing.JInternalFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> categoria;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -171,6 +195,5 @@ public class BuscarRevista extends javax.swing.JInternalFrame
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

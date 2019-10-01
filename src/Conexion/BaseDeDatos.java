@@ -287,6 +287,20 @@ public class BaseDeDatos
         return sentencia;
     }
     
+     public CallableStatement MostrarCategorias(String proc)
+    {
+        CallableStatement sentencia=null;
+        try
+        {
+            sentencia=c.prepareCall("{call " + proc+"}");
+            return sentencia;
+        }catch(SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error, Error\n"+ex.getMessage());
+        }       
+        return sentencia;
+    }
+    
     public void PrestamoLibro(String procedimiento,int idusuario,String isnb,String tipo)
     {
        CallableStatement sentencia = null;

@@ -2,7 +2,11 @@ package Internals;
 
 import Conexion.BaseDeDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class AgregarLibros extends javax.swing.JInternalFrame 
@@ -18,6 +22,8 @@ public class AgregarLibros extends javax.swing.JInternalFrame
     public void setC(BaseDeDatos c) 
     {
         this.c = c;
+        cargarCategorias();
+        cargarEditorial();
     }
 
     @SuppressWarnings("unchecked")
@@ -30,13 +36,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Titulolbl = new javax.swing.JLabel();
         Titulotxt = new javax.swing.JTextField();
         Categorialbl = new javax.swing.JLabel();
-        Categoriatxt = new javax.swing.JTextField();
         Lanzamientolbl = new javax.swing.JLabel();
         Fechajdc = new com.toedter.calendar.JDateChooser();
         Idiomalbl = new javax.swing.JLabel();
         Idiomascmb = new javax.swing.JComboBox<>();
         Editoriallbl = new javax.swing.JLabel();
-        Editorialtxt = new javax.swing.JTextField();
         Existencialbl = new javax.swing.JLabel();
         Existenciatxt = new javax.swing.JTextField();
         Paginaslbl = new javax.swing.JLabel();
@@ -46,6 +50,8 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Descripciontxa = new javax.swing.JTextArea();
         Guardarbtn = new javax.swing.JButton();
         Limpiarbtn = new javax.swing.JButton();
+        categoria = new javax.swing.JComboBox<>();
+        editorial = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Agregar libro");
@@ -71,8 +77,6 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Categorialbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Categorialbl.setText("Categoria");
 
-        Categoriatxt.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         Lanzamientolbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Lanzamientolbl.setText("Lanzamiento");
 
@@ -86,8 +90,6 @@ public class AgregarLibros extends javax.swing.JInternalFrame
 
         Editoriallbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Editoriallbl.setText("Editorial");
-
-        Editorialtxt.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         Existencialbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Existencialbl.setText("Existencia");
@@ -117,6 +119,10 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Limpiarbtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Limpiarbtn.setText("Limpiar");
 
+        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+
+        editorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,7 +147,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                                         .addGap(18, 18, 18)
                                         .addComponent(Editoriallbl)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Editorialtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(Existenciatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(30, 30, 30)
@@ -163,7 +169,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                                 .addGap(18, 18, 18)
                                 .addComponent(Categorialbl)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Categoriatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(294, 294, 294)
                         .addComponent(Encabezadolbl)))
@@ -189,7 +195,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                             .addComponent(Titulolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Titulotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Categorialbl)
-                            .addComponent(Categoriatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
@@ -200,7 +206,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                                     .addComponent(Idiomalbl)
                                     .addComponent(Idiomascmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Editoriallbl)
-                                    .addComponent(Editorialtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(Fechajdc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -208,7 +214,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                     .addComponent(Paginaslbl)
                     .addComponent(Existenciatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Paginastxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Descripcionlbl)
                     .addComponent(Descripcionspn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -222,8 +228,43 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void cargarCategorias(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarCategorias()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   categoria.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+     private void cargarEditorial(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarEditoriales()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   editorial.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     private void GuardarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarbtnActionPerformed
-        if(Titulotxt.getText().equals("")||Categoriatxt.getText().equals("")||Fechajdc.getDate()==null||Editorialtxt.getText().equals("")||Existenciatxt.getText().equals(""))
+        if(Titulotxt.getText().equals("")||categoria.getSelectedIndex()==0||Fechajdc.getDate()==null||editorial.getSelectedIndex()==0||Existenciatxt.getText().equals(""))
             JOptionPane.showMessageDialog(this, "Campo vacio detectado","Advertencia",JOptionPane.WARNING_MESSAGE);
         else
         {
@@ -233,15 +274,14 @@ public class AgregarLibros extends javax.swing.JInternalFrame
             }
             else
             {
-                int cat=Integer.parseInt(Categoriatxt.getText());
-                int edi=Integer.parseInt(Editorialtxt.getText());
+            
                 int exi=Integer.parseInt(Existenciatxt.getText());
                 String idi=(String) (Idiomascmb.getSelectedItem());
                 //int est=(int) (Estadocmb.getSelectedIndex()-1);
                 int pag=Integer.parseInt(Paginastxt.getText());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                 String fec=sdf.format(Fechajdc.getDate());
-                c.insertar_libros("InsertarLibros(?,?,?,?,?,?,?,?,?)",Codigoftxt.getText(),Titulotxt.getText(),fec,cat,edi,exi,idi,pag,Descripciontxa.getText());
+                c.insertar_libros("InsertarLibros(?,?,?,?,?,?,?,?,?)",Codigoftxt.getText(),Titulotxt.getText(),fec,categoria.getSelectedIndex(),editorial.getSelectedIndex(),exi,idi,pag,Descripciontxa.getText());
             }
         }
     }//GEN-LAST:event_GuardarbtnActionPerformed
@@ -249,13 +289,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Categorialbl;
-    private javax.swing.JTextField Categoriatxt;
     private javax.swing.JFormattedTextField Codigoftxt;
     private javax.swing.JLabel Descripcionlbl;
     private javax.swing.JScrollPane Descripcionspn;
     private javax.swing.JTextArea Descripciontxa;
     private javax.swing.JLabel Editoriallbl;
-    private javax.swing.JTextField Editorialtxt;
     private javax.swing.JLabel Encabezadolbl;
     private javax.swing.JLabel Existencialbl;
     private javax.swing.JTextField Existenciatxt;
@@ -270,5 +308,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
     private javax.swing.JTextField Paginastxt;
     private javax.swing.JLabel Titulolbl;
     private javax.swing.JTextField Titulotxt;
+    private javax.swing.JComboBox<String> categoria;
+    private javax.swing.JComboBox<String> editorial;
     // End of variables declaration//GEN-END:variables
 }
