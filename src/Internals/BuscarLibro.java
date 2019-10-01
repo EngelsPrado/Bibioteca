@@ -156,8 +156,8 @@ public class BuscarLibro extends javax.swing.JInternalFrame
                         v.add(r.getString(1));
                         v.add(r.getString(2));
                         v.add(r.getString(3));
-                        v.add(r.getInt(4));
-                        v.add(r.getInt(5));
+                        v.add(r.getString(4));
+                        v.add(r.getString(5));
                         v.add(r.getInt(6));
                         v.add(r.getString(7));
                         v.add(r.getInt(8));
