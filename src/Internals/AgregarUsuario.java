@@ -1,6 +1,10 @@
 package Internals;
 
 import Conexion.BaseDeDatos;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.JOptionPane;
 
 public class AgregarUsuario extends javax.swing.JInternalFrame 
@@ -59,6 +63,11 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         Pn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Pn.setForeground(new java.awt.Color(102, 102, 102));
         Pn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Pn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PnKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -67,6 +76,11 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         Pa.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Pa.setForeground(new java.awt.Color(102, 102, 102));
         Pa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Pa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PaKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,6 +102,11 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         user.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         user.setForeground(new java.awt.Color(102, 102, 102));
         user.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                userKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,9 +115,9 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         pass.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         pass.setForeground(new java.awt.Color(102, 102, 102));
         pass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
-        pass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passKeyTyped(evt);
             }
         });
 
@@ -113,7 +132,7 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         tel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
         tel.setForeground(new java.awt.Color(102, 102, 102));
         try {
-            tel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+            tel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -126,6 +145,11 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         dir.setForeground(new java.awt.Color(102, 102, 102));
         dir.setRows(5);
         dir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 3));
+        dir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dirKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(dir);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -135,6 +159,11 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         Sn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Sn.setForeground(new java.awt.Color(102, 102, 102));
         Sn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Sn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                SnKeyTyped(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,6 +172,11 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         Sa.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Sa.setForeground(new java.awt.Color(102, 102, 102));
         Sa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Sa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                SaKeyTyped(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(49, 91, 150));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -212,9 +246,10 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
                     .addComponent(Sn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Sa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -222,12 +257,12 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
+                        .addGap(43, 43, 43)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addContainerGap()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(111, 111, 111)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,30 +277,30 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
                                     .addComponent(Pn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addComponent(Sn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Pa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
                                     .addComponent(Sa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addComponent(jLabel7)
-                                .addGap(44, 44, 44)
+                                .addGap(112, 112, 112)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(Pa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(37, 37, 37)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
                                     .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE))
+                                    .addComponent(jLabel10)
+                                    .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 46, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -284,8 +319,8 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -308,9 +343,92 @@ public class AgregarUsuario extends javax.swing.JInternalFrame
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passActionPerformed
+    private void userKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+        String Caracteres = user.getText();
+        if(Caracteres.length()>=29){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_userKeyTyped
+
+    private void passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()){
+            evt.consume();
+        } 
+        String Caracteres = pass.getText();
+        if(Caracteres.length()>=39){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_passKeyTyped
+
+    private void PnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PnKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+        String Caracteres = user.getText();
+        if(Caracteres.length()>=39){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_PnKeyTyped
+
+    private void SnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SnKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+        String Caracteres = user.getText();
+        if(Caracteres.length()>=39){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_SnKeyTyped
+
+    private void PaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PaKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+        String Caracteres = user.getText();
+        if(Caracteres.length()>=39){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_PaKeyTyped
+
+    private void SaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SaKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+        String Caracteres = user.getText();
+        if(Caracteres.length()>=39){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_SaKeyTyped
+
+    private void dirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dirKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_dirKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

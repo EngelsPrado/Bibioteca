@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class AgregarLibros extends javax.swing.JInternalFrame 
@@ -67,6 +69,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Titulotxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Titulotxt.setForeground(new java.awt.Color(102, 102, 102));
         Titulotxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Titulotxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TitulotxtKeyTyped(evt);
+            }
+        });
 
         Lanzamientolbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         Lanzamientolbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,6 +103,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Existenciatxt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Existenciatxt.setForeground(new java.awt.Color(102, 102, 102));
         Existenciatxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Existenciatxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ExistenciatxtKeyTyped(evt);
+            }
+        });
 
         Descripcionlbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         Descripcionlbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -107,6 +119,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Descripciontxa.setRows(5);
         Descripciontxa.setTabSize(5);
         Descripciontxa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 3));
+        Descripciontxa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                DescripciontxaKeyTyped(evt);
+            }
+        });
         Descripcionspn.setViewportView(Descripciontxa);
 
         Paginaslbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -116,6 +133,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         Paginastxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Paginastxt.setForeground(new java.awt.Color(102, 102, 102));
         Paginastxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Paginastxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PaginastxtKeyTyped(evt);
+            }
+        });
 
         Idiomalbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         Idiomalbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -232,7 +254,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                         .addComponent(Encabezadolbl)
                         .addGap(33, 33, 33)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +264,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(Encabezadolbl)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -253,7 +275,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                             .addComponent(Editoriallbl)
                             .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Titulotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Titulolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -274,14 +296,14 @@ public class AgregarLibros extends javax.swing.JInternalFrame
                         .addComponent(Codigoftxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Paginaslbl)
                         .addComponent(Paginastxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Descripcionlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Existencialbl)
                         .addComponent(Existenciatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(Descripcionspn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Guardarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Limpiarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -292,19 +314,16 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void cargarCategorias(){
          try {
             ResultSet r;
@@ -312,14 +331,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
               r=c.MostrarCategorias("MostrarCategorias()").executeQuery();
              while(r.next())
                 {
-                    System.out.println(r.getString(2));
                    categoria.addItem(r.getString(2));
                 }
         } catch (SQLException ex) {
             Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }   
     }
     
      private void cargarEditorial(){
@@ -329,14 +345,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame
               r=c.MostrarCategorias("MostrarEditoriales()").executeQuery();
              while(r.next())
                 {
-                    System.out.println(r.getString(2));
                    editorial.addItem(r.getString(2));
                 }
         } catch (SQLException ex) {
             Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }  
     }
     
     private void GuardarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarbtnActionPerformed
@@ -344,6 +357,16 @@ public class AgregarLibros extends javax.swing.JInternalFrame
             JOptionPane.showMessageDialog(this, "Campo vacio detectado","Advertencia",JOptionPane.WARNING_MESSAGE);
         else
         {
+            String con="";
+            int cont=0;
+            while(cont<Codigoftxt.getText().length()-1)
+            {
+                con+=(Codigoftxt.getText().charAt(cont));
+                cont++;
+            }
+            if(con.contains(" "))
+                JOptionPane.showMessageDialog(this, "Llene el codigo");
+            else{
             if(Idiomascmb.getSelectedItem()=="Seleccionar")//Estadocmb.getSelectedItem()=="Seleccionar")
             {
                 JOptionPane.showMessageDialog(this, "Seleccione algo en los combo box","Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -353,15 +376,53 @@ public class AgregarLibros extends javax.swing.JInternalFrame
             
                 int exi=Integer.parseInt(Existenciatxt.getText());
                 String idi=(String) (Idiomascmb.getSelectedItem());
-                //int est=(int) (Estadocmb.getSelectedIndex()-1);
                 int pag=Integer.parseInt(Paginastxt.getText());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                 String fec=sdf.format(Fechajdc.getDate());
                 c.insertar_libros("InsertarLibros(?,?,?,?,?,?,?,?,?)",Codigoftxt.getText(),Titulotxt.getText(),fec,categoria.getSelectedIndex(),editorial.getSelectedIndex(),exi,idi,pag,Descripciontxa.getText());
             }
-        }
+        }}
     }//GEN-LAST:event_GuardarbtnActionPerformed
 
+    private void TitulotxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TitulotxtKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+        String Caracteres = Titulotxt.getText();
+        if(Caracteres.length()>=39){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_TitulotxtKeyTyped
+
+    private void ExistenciatxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ExistenciatxtKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/D{^0-9}]"); 
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_ExistenciatxtKeyTyped
+
+    private void PaginastxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PaginastxtKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/D{^0-9}]"); 
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_PaginastxtKeyTyped
+
+    private void DescripciontxaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripciontxaKeyTyped
+        String cadena = Character.toString(evt.getKeyChar());
+        Pattern p = Pattern.compile("[/w{^a-zA-Z}]");
+        Matcher m = p.matcher(cadena);  
+        if(!m.find()||evt.getKeyChar()=='{'||evt.getKeyChar()=='}'||evt.getKeyChar()=='/'){
+            evt.consume();
+        } 
+    }//GEN-LAST:event_DescripciontxaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Categorialbl;
