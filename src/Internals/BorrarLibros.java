@@ -1,6 +1,7 @@
 package Internals;
 
 import Conexion.BaseDeDatos;
+import javax.swing.JOptionPane;
 
 public class BorrarLibros extends javax.swing.JInternalFrame 
 {
@@ -118,8 +119,20 @@ public class BorrarLibros extends javax.swing.JInternalFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String isbn=jFormattedTextField1.getText();
-        c.BorrarLibro("BorrarLibros(?)", isbn);
+        String con="";
+        int cont=0;
+        while(cont<jFormattedTextField1.getText().length()-1)
+        {
+            con+=(jFormattedTextField1.getText().charAt(cont));
+            cont++;
+        }
+        if(con.contains(" "))
+            JOptionPane.showMessageDialog(this, "Llene el codigo");
+        else
+        {
+            String isbn=jFormattedTextField1.getText();
+            c.BorrarLibro("BorrarLibros(?)", isbn);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
