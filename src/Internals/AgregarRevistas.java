@@ -119,7 +119,7 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
 
         editorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
 
-        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
