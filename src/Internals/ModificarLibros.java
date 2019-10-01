@@ -1,6 +1,10 @@
 package Internals;
 
 import Conexion.BaseDeDatos;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ModificarLibros extends javax.swing.JInternalFrame 
@@ -14,6 +18,7 @@ public class ModificarLibros extends javax.swing.JInternalFrame
     public void setC(BaseDeDatos c) 
     {
         this.c = c;
+        cargarEditorial();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -26,9 +31,9 @@ public class ModificarLibros extends javax.swing.JInternalFrame
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        editorial = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Modificar libro");
@@ -57,8 +62,6 @@ public class ModificarLibros extends javax.swing.JInternalFrame
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jButton1.setText("Modificar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +72,8 @@ public class ModificarLibros extends javax.swing.JInternalFrame
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jButton2.setText("Limpiar");
+
+        editorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,7 +91,7 @@ public class ModificarLibros extends javax.swing.JInternalFrame
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addComponent(jButton1)
@@ -110,14 +115,14 @@ public class ModificarLibros extends javax.swing.JInternalFrame
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -129,20 +134,38 @@ public class ModificarLibros extends javax.swing.JInternalFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+      private void cargarEditorial(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarEditoriales()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   editorial.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextField1.getText().equals(""))
+        if(editorial.getSelectedIndex()==0)
         {
             JOptionPane.showMessageDialog(this,"Identificador de editorial es necesario");
         }
         else
         {
-            int edi=Integer.parseInt(jTextField1.getText());
-            c.ModificarLibro("ModificarLibros(?,?,?)",jFormattedTextField1.getText(),edi,jTextArea1.getText());
+          
+            c.ModificarLibro("ModificarLibros(?,?,?)",jFormattedTextField1.getText(),editorial.getSelectedIndex(),jTextArea1.getText());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> editorial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -152,6 +175,5 @@ public class ModificarLibros extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

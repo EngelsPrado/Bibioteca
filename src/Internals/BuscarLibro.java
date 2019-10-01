@@ -4,6 +4,8 @@ import Conexion.BaseDeDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,11 +15,13 @@ public class BuscarLibro extends javax.swing.JInternalFrame
     public BuscarLibro() 
     {
         initComponents();
+     
     }
     
     public void setC(BaseDeDatos c) 
     {
         this.c = c;
+        cargarCategorias();
     }
 
     @SuppressWarnings("unchecked")
@@ -30,10 +34,10 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        categoria = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Buscar Libro");
@@ -77,6 +81,13 @@ public class BuscarLibro extends javax.swing.JInternalFrame
             }
         });
 
+        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+        categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,22 +103,24 @@ public class BuscarLibro extends javax.swing.JInternalFrame
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3)
-                .addGap(24, 24, 24))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(jLabel1))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(291, 291, 291)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(275, 275, 275)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(291, 291, 291)
+                                .addComponent(jButton1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,19 +134,19 @@ public class BuscarLibro extends javax.swing.JInternalFrame
                     .addComponent(jLabel4)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextField1.getText().equals("")&&jTextField2.getText().equals("")&&jTextField3.getText().equals(""))
+        if(categoria.getSelectedIndex()!=0 )
         {
             JOptionPane.showMessageDialog(this, "Campo vacio detectado");
         }
@@ -143,12 +156,10 @@ public class BuscarLibro extends javax.swing.JInternalFrame
             DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
             model.setRowCount(0);
             
-            int cat=0;
-            if(!jTextField3.getText().equals(""))
-                cat=Integer.parseInt(jTextField3.getText());
+        
             try
             {
-                r=c.buscarLibro("BuscarLibro(?,?,?)", jTextField1.getText(),jTextField2.getText(),cat).executeQuery();
+                r=c.buscarLibro("BuscarLibro(?,?,?)", jTextField1.getText(),jTextField2.getText(),categoria.getSelectedIndex()).executeQuery();
                 while(r.next())
                 {
                     Vector v=new Vector();
@@ -174,8 +185,32 @@ public class BuscarLibro extends javax.swing.JInternalFrame
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cargarCategorias(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarCategorias()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   categoria.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+    private void categoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaActionPerformed
+       
+       
+        
+    }//GEN-LAST:event_categoriaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> categoria;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -185,6 +220,5 @@ public class BuscarLibro extends javax.swing.JInternalFrame
     private static javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

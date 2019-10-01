@@ -2,7 +2,11 @@ package Internals;
 
 import Conexion.BaseDeDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class AgregarRevistas extends javax.swing.JInternalFrame 
@@ -18,6 +22,8 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
     public void setC(BaseDeDatos c) 
     {
         this.c = c;
+        cargarEditorial();
+        cargarCategorias();
     }
 
     @SuppressWarnings("unchecked")
@@ -36,9 +42,7 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
         jLabel6 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         Idiomascmb = new javax.swing.JComboBox<>();
@@ -47,6 +51,8 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        editorial = new javax.swing.JComboBox<>();
+        categoria = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Agregar Revista");
@@ -111,6 +117,10 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setText("Idioma");
 
+        editorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+
+        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,9 +144,9 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
                         .addGap(18, 18, 18)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -164,7 +174,7 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
@@ -181,7 +191,7 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -197,17 +207,17 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6))
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(29, 29, 29)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(Idiomascmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                    .addComponent(Idiomascmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -217,8 +227,42 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     private void cargarCategorias(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarCategoriasRevistas()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   categoria.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+     private void cargarEditorial(){
+         try {
+            ResultSet r;
+            
+              r=c.MostrarCategorias("MostrarEditoriales()").executeQuery();
+             while(r.next())
+                {
+                    System.out.println(r.getString(2));
+                   editorial.addItem(r.getString(2));
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(jTextField1.getText().equals("")||jTextField2.getText().equals("")||jTextField3.getText().equals("")||jTextField4.getText().equals("")||jTextField5.getText().equals("")||jTextField6.getText().equals("")||jTextField7.getText().equals("")||jDateChooser1.getDate()==null||Idiomascmb.getSelectedItem()=="Seleccionar")
+        if(jTextField1.getText().equals("")||jTextField2.getText().equals("")||jTextField3.getText().equals("")||editorial.getSelectedIndex()==0||categoria.getSelectedIndex()==0||jTextField6.getText().equals("")||jTextField7.getText().equals("")||jDateChooser1.getDate()==null||Idiomascmb.getSelectedItem()=="Seleccionar")
         {
             JOptionPane.showMessageDialog(this,"Campo vacio detectado");
         }
@@ -230,19 +274,19 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
             int vol=Integer.parseInt(jTextField3.getText());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             String fec=sdf.format(jDateChooser1.getDate());
-            int edi=Integer.parseInt(jTextField4.getText());
-            int cat=Integer.parseInt(jTextField5.getText());
             int exi=Integer.parseInt(jTextField6.getText());
             String idi=(String) (Idiomascmb.getSelectedItem());
             String tema=jTextField7.getText();
             
-            c.insertar_revistas("InsertarRevistas(?,?,?,?,?,?,?,?,?,?)",issn,titulo,nf,vol,fec,edi,cat,exi,idi,tema);
+            c.insertar_revistas("InsertarRevistas(?,?,?,?,?,?,?,?,?,?)",issn,titulo,nf,vol,fec,editorial.getSelectedIndex(),categoria.getSelectedIndex(),exi,idi,tema);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Idiomascmb;
+    private javax.swing.JComboBox<String> categoria;
+    private javax.swing.JComboBox<String> editorial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -261,8 +305,6 @@ public class AgregarRevistas extends javax.swing.JInternalFrame
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
