@@ -30,38 +30,58 @@ public class AgregarLibros extends javax.swing.JInternalFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Encabezadolbl = new javax.swing.JLabel();
-        ISBNlbl = new javax.swing.JLabel();
-        Codigoftxt = new javax.swing.JFormattedTextField();
+        jPanel1 = new javax.swing.JPanel();
         Titulolbl = new javax.swing.JLabel();
         Titulotxt = new javax.swing.JTextField();
-        Categorialbl = new javax.swing.JLabel();
         Lanzamientolbl = new javax.swing.JLabel();
         Fechajdc = new com.toedter.calendar.JDateChooser();
-        Idiomalbl = new javax.swing.JLabel();
-        Idiomascmb = new javax.swing.JComboBox<>();
-        Editoriallbl = new javax.swing.JLabel();
+        ISBNlbl = new javax.swing.JLabel();
+        Codigoftxt = new javax.swing.JFormattedTextField();
         Existencialbl = new javax.swing.JLabel();
         Existenciatxt = new javax.swing.JTextField();
-        Paginaslbl = new javax.swing.JLabel();
-        Paginastxt = new javax.swing.JTextField();
         Descripcionlbl = new javax.swing.JLabel();
         Descripcionspn = new javax.swing.JScrollPane();
         Descripciontxa = new javax.swing.JTextArea();
+        Paginaslbl = new javax.swing.JLabel();
+        Paginastxt = new javax.swing.JTextField();
+        Idiomalbl = new javax.swing.JLabel();
+        Idiomascmb = new javax.swing.JComboBox<>();
+        Editoriallbl = new javax.swing.JLabel();
+        editorial = new javax.swing.JComboBox<>();
+        Categorialbl = new javax.swing.JLabel();
+        categoria = new javax.swing.JComboBox<>();
         Guardarbtn = new javax.swing.JButton();
         Limpiarbtn = new javax.swing.JButton();
-        categoria = new javax.swing.JComboBox<>();
-        editorial = new javax.swing.JComboBox<>();
+        Encabezadolbl = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Agregar libro");
 
-        Encabezadolbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        Encabezadolbl.setText("Agregar libro");
+        jPanel1.setBackground(new java.awt.Color(35, 53, 103));
 
-        ISBNlbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        ISBNlbl.setText("ISBN");
+        Titulolbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Titulolbl.setForeground(new java.awt.Color(255, 255, 255));
+        Titulolbl.setText("Titulo: ");
 
+        Titulotxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        Titulotxt.setForeground(new java.awt.Color(102, 102, 102));
+        Titulotxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+
+        Lanzamientolbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Lanzamientolbl.setForeground(new java.awt.Color(255, 255, 255));
+        Lanzamientolbl.setText("Lanzamiento:");
+
+        Fechajdc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Fechajdc.setForeground(new java.awt.Color(102, 102, 102));
+        Fechajdc.setDateFormatString("yyyy-MM-dd");
+
+        ISBNlbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        ISBNlbl.setForeground(new java.awt.Color(255, 255, 255));
+        ISBNlbl.setText("ISBN:");
+
+        Codigoftxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+        Codigoftxt.setForeground(new java.awt.Color(102, 102, 102));
         try {
             Codigoftxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("978-###-###-#")));
         } catch (java.text.ParseException ex) {
@@ -69,160 +89,216 @@ public class AgregarLibros extends javax.swing.JInternalFrame
         }
         Codigoftxt.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        Titulolbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Titulolbl.setText("Titulo");
+        Existencialbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Existencialbl.setForeground(new java.awt.Color(255, 255, 255));
+        Existencialbl.setText("Existencia:");
 
-        Titulotxt.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Existenciatxt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Existenciatxt.setForeground(new java.awt.Color(102, 102, 102));
+        Existenciatxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
 
-        Categorialbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Categorialbl.setText("Categoria");
-
-        Lanzamientolbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Lanzamientolbl.setText("Lanzamiento");
-
-        Fechajdc.setDateFormatString("yyyy-MM-dd");
-
-        Idiomalbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Idiomalbl.setText("Idioma");
-
-        Idiomascmb.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Idiomascmb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "esp", "ing" }));
-
-        Editoriallbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Editoriallbl.setText("Editorial");
-
-        Existencialbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Existencialbl.setText("Existencia");
-
-        Paginaslbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Paginaslbl.setText("# de paginas");
-
-        Paginastxt.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        Descripcionlbl.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Descripcionlbl.setText("Descripcion");
+        Descripcionlbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Descripcionlbl.setForeground(new java.awt.Color(255, 255, 255));
+        Descripcionlbl.setText("Descripcion:");
 
         Descripciontxa.setColumns(3);
         Descripciontxa.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Descripciontxa.setForeground(new java.awt.Color(102, 102, 102));
         Descripciontxa.setRows(5);
         Descripciontxa.setTabSize(5);
+        Descripciontxa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 3));
         Descripcionspn.setViewportView(Descripciontxa);
 
-        Guardarbtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Guardarbtn.setText("Guardar");
+        Paginaslbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Paginaslbl.setForeground(new java.awt.Color(255, 255, 255));
+        Paginaslbl.setText("# de paginas:");
+
+        Paginastxt.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        Paginastxt.setForeground(new java.awt.Color(102, 102, 102));
+        Paginastxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+
+        Idiomalbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Idiomalbl.setForeground(new java.awt.Color(255, 255, 255));
+        Idiomalbl.setText("Idioma:");
+
+        Idiomascmb.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        Idiomascmb.setForeground(new java.awt.Color(102, 102, 102));
+        Idiomascmb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "esp", "ing" }));
+        Idiomascmb.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+
+        Editoriallbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Editoriallbl.setForeground(new java.awt.Color(255, 255, 255));
+        Editoriallbl.setText("Editorial:");
+
+        editorial.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        editorial.setForeground(new java.awt.Color(102, 102, 102));
+        editorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir:" }));
+        editorial.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+
+        Categorialbl.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        Categorialbl.setForeground(new java.awt.Color(255, 255, 255));
+        Categorialbl.setText("Categoria:");
+
+        categoria.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        categoria.setForeground(new java.awt.Color(102, 102, 102));
+        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+        categoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(49, 91, 150), 2));
+
+        Guardarbtn.setBackground(new java.awt.Color(49, 91, 150));
+        Guardarbtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Guardarbtn.setForeground(new java.awt.Color(255, 255, 255));
+        Guardarbtn.setText("GUARDAR");
+        Guardarbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        Guardarbtn.setContentAreaFilled(false);
+        Guardarbtn.setOpaque(true);
         Guardarbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarbtnActionPerformed(evt);
             }
         });
 
-        Limpiarbtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        Limpiarbtn.setText("Limpiar");
+        Limpiarbtn.setBackground(new java.awt.Color(49, 91, 150));
+        Limpiarbtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Limpiarbtn.setForeground(new java.awt.Color(255, 255, 255));
+        Limpiarbtn.setText("LIMPIAR");
+        Limpiarbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        Limpiarbtn.setContentAreaFilled(false);
+        Limpiarbtn.setOpaque(true);
 
-        categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+        Encabezadolbl.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        Encabezadolbl.setForeground(new java.awt.Color(255, 255, 255));
+        Encabezadolbl.setText("AGREGAR LIBRO");
 
-        editorial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Internals/anadir.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(ISBNlbl)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(Existenciatxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(Codigoftxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(Lanzamientolbl)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(Fechajdc, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Titulolbl)
+                                        .addGap(89, 89, 89)
+                                        .addComponent(Titulotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(Existencialbl)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(Guardarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Paginaslbl)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Paginastxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Categorialbl)
+                                            .addComponent(Editoriallbl)
+                                            .addComponent(Idiomalbl))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Idiomascmb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Descripcionlbl)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(Descripcionspn, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(143, 143, 143)
+                                .addComponent(Limpiarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(Encabezadolbl)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(122, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(Encabezadolbl)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Categorialbl)
+                            .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Editoriallbl)
+                            .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Titulotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Titulolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(Lanzamientolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Fechajdc, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Idiomascmb, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Idiomalbl))))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ISBNlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Codigoftxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Paginaslbl)
+                        .addComponent(Paginastxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Descripcionlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Existencialbl)
+                        .addComponent(Existenciatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Descripcionspn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Guardarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Limpiarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Lanzamientolbl)
-                                    .addComponent(Existencialbl))
-                                .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(Fechajdc, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Idiomalbl)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Idiomascmb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Editoriallbl)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(Existenciatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(Paginaslbl)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Paginastxt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Descripcionlbl)
-                                .addGap(18, 18, 18)
-                                .addComponent(Descripcionspn, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ISBNlbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Codigoftxt, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(Titulolbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Titulotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Categorialbl)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(Encabezadolbl)))
-                .addGap(0, 74, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(Guardarbtn)
-                .addGap(129, 129, 129)
-                .addComponent(Limpiarbtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Encabezadolbl)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ISBNlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Codigoftxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Titulolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Titulotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Categorialbl)
-                            .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(Lanzamientolbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Idiomalbl)
-                                    .addComponent(Idiomascmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Editoriallbl)
-                                    .addComponent(editorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(Fechajdc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Existencialbl)
-                    .addComponent(Paginaslbl)
-                    .addComponent(Existenciatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Paginastxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Descripcionlbl)
-                    .addComponent(Descripcionspn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Guardarbtn)
-                    .addComponent(Limpiarbtn))
-                .addGap(35, 35, 35))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -310,5 +386,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame
     private javax.swing.JTextField Titulotxt;
     private javax.swing.JComboBox<String> categoria;
     private javax.swing.JComboBox<String> editorial;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
