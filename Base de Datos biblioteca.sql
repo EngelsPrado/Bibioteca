@@ -20,6 +20,8 @@ idCategoria int identity(1,1) primary key not null,
 Categoria nvarchar(50) not null
 )
 
+
+
 insert into Categorias values ('Ciencia'),('Ficcion'),('Fisica')
 
 --Editoriales se mostrara con un select en las interfaces
@@ -33,10 +35,12 @@ email varchar(40) null
 
 insert into Editoriales values('San jeronimo','Conchita palacios','75549314','')
 
+drop table Usuarios
+
 create table Usuarios(
 idUsuario int identity(1,1) primary key not null,
 DNI char(16) check (DNI like '[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][A-Z]') unique not null,
-usuario varbinary(max)not null,
+usuario varchar(30)not null,
 contrasenia varbinary (max) not null,
 PNombre varchar(40) not null,
 Snombre varchar(40) null,
@@ -47,8 +51,44 @@ telefono  char(8) check (telefono like '[5|7|8][0-9][0-9][0-9][0-9][0-9][0-9][0-
 Observaciones text null
 )
 
+
+go
+create proc InsertarUsuario
+@dni char(16),@user varchar(16),@contra varbinary(max),
+@Pnombre varchar(40),@Snombre varchar(40),@Papellido varchar(40),
+@Sapellido varchar(40),@direccion varchar(max),@telefono char(8)
+as
+   insert into Usuarios (DNI,usuario,contrasenia,PNombre,Snombre,Papellido,Sapellido,Direccion,telefono) values (@dni,@user,@contra,@Pnombre,@Snombre,@Papellido,@Sapellido,@direccion,@telefono) 
+
+
+go
+
+select dbo.ValidarUsuario('engels')
+
+insert into Usuarios values('001-130297-0025J','engels', HashBytes('MD5','amores'),'Engels','','Prado','','Villa','75549314','')
+select *from Usuarios
+go
+create function ValidarUsuario(
+@user varchar(40))
+returns bit 
+as
+begin
+   if exists (select usuario from Usuarios where usuario=@user)
+   begin
+      return 0
+   end
+   else
+      begin
+		 return 1
+	  end 
+	  return 0
+end
+go
+
+
+
 delete Usuarios where usuario='Engels'
-insert into Usuarios values('001-130297-0025T','xgames', HashBytes('MD5','amores'),'Engels','','Prado','','Villa','75549314','')
+
 select *from Usuarios
 
 create table Libros(
@@ -65,7 +105,6 @@ estado bit default 1,
 foreign key (Categoria) references Categorias(idCategoria),
 foreign key (Editorial) references Editoriales(idEditorial), 
 )
-
 
 insert into Libros (ISBN,titulo,FechaLanzamiento,Categoria,Editorial,existencia,idioma,Paginas,Descripcion)values ('001-002-003-1','Boson de Higs','19-02-17',1,1,100,'esp',345,'Libro sobre fisica cuantica')
 select *from Libros
@@ -88,8 +127,8 @@ select *from Libros_Autores
 create table Categorias_Revistas(
 idCategoria int identity(1,1) primary key not null,
 Categoria   varchar(40) not null,
-)
 
+)
 insert into Categorias_Revistas values ('Comida'),('Ocio'),('Entretenimiento')
 --Categorias_Revistas se mostrara con un select en las interfaces
 
@@ -107,11 +146,14 @@ temas text not null,
 estado bit default 1,
 foreign key (Editorial) references Editoriales(idEditorial),
 foreign key (tipo) references Categorias_Revistas(idCategoria),
+
 )
+
+insert into Revistas values ('issn-1111-1111','Almanaque',100,2,'2012-02-13',1,1,100,'esp','mi picha',1)
 
 
 drop table PrestamosLibros
-
+select *from PrestamosLibros
 create table PrestamosLibros(
 idPrestamo int identity(1,1) not null,
 idUsuario int not null,
@@ -127,7 +169,7 @@ foreign key (idLibro) references Libros(ISBN)
 --Recibimos el id del usuario para consultar el estado de sus prestamos
 
 go
-create proc consultaUsuario
+alter proc consultaUsuario
 @iduser int
 as
    if exists(select idUsuario from Usuarios where idUsuario=@iduser)
@@ -139,6 +181,12 @@ as
    
 go
 
+go
+alter proc MostrarUsuarios
+as
+  
+   select idUsuario,DNI,usuario,PNombre,Papellido,Direccion,telefono,Observaciones from Usuarios
+go
 
 
 --Obtener el ID del usuario logeado
@@ -152,8 +200,6 @@ as
 	end
    
 go
-
-
 
 insert into PrestamosLibros(idUsuario,idLibro,tipo,fechaSalida) values (1,'001-002-003-1','dom',GETDATE())
 
@@ -186,7 +232,7 @@ select *from Usuarios where usuario='xgame' and @pass='5D9AA1BC9EA084A3421C33410
 select dbo.inicioSesion('xgames','5D9AA1BC9EA084A3421C3341011E2482')
 
 go
-create function inicioSesion( @user varchar(30), @pass varchar (max))
+alter function inicioSesion( @user varchar(30), @pass varchar (max))
 returns bit
 as
 begin
@@ -231,35 +277,55 @@ go
 --Busqueda por titulo,autor o categoria
 -- Recibimos la categoria como entero porque en la interfaz habra un select
 go
-create proc BuscarLibro
+alter proc BuscarLibro
 @titulo nvarchar(40),
 @autor nvarchar(70),
 @cat int 
 as
-   if (@titulo !='' and @autor!='' and @cat=0)
+   
+   if (@titulo !='' and @autor!='' and exists(select idCategoria from Categorias where idCategoria=@cat))
    begin
-     select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where A.Autor like @autor+'%' and L.titulo like @titulo+'%'
+     select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where A.Autor like @autor+'%' and L.titulo like @titulo+'%' and L.Categoria=@cat
    end
    else
        begin
-	        if Exists (select idCategoria from Categorias where idCategoria=@cat)
+	        if Exists (select idCategoria from Categorias where idCategoria=@cat )  and @autor!=''
 		     begin
-			      select *from Libros where Categoria=@cat
+			      select *from Libros L  join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on LA.Autor=A.idAutor where L.Categoria=@cat and A.Autor like  @autor+'%'
 			 end
 			 else
 			     begin
-				   if (@autor !='')
+				   if (@autor !='' and @titulo!='')
 				   begin
-				          select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where A.Autor like @autor+'%'
+				          select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where A.Autor like @autor+'%' and L.titulo like @titulo+'%'
  
 				   end
 				   else
 				       begin
-					      if( @titulo!='' and @autor=' ' and @cat=0)
+					      if( @titulo!='' and exists(select idCategoria from Categorias where idCategoria=@cat))
 						  begin
-						       select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where A.Autor like @titulo+'%'
+						       select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where L.titulo like @titulo+'%' and L.Categoria=@cat
 
 						  end
+						  else
+						   begin
+						         if @titulo !=''
+								 begin
+								   select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where L.titulo like @titulo+'%' 
+								 end
+								 else
+								      begin
+									    if @autor!=''
+										begin
+										   select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where A.Autor like @autor+'%' 
+										end
+										else
+										    begin
+											   if exists(select idCategoria from Categorias where idCategoria=@cat)
+											      select L.ISBN,L.titulo,L.FechaLanzamiento,L.Categoria,L.Editorial,L.existencia,L.idioma,L.Paginas,L.Descripcion,A.Autor from libros L join Libros_Autores LA on L.ISBN=LA.ISBN join Autores A on A.idAutor=LA.Autor where L.Categoria=@cat
+											end
+									  end
+						   end
 
 					   end
 				 end  
@@ -272,13 +338,10 @@ create proc  BuscarRevista
  @tipo int
  as
     
-	declare @cat as int
-
-	set @cat=(select idCategoria from Categorias_Revistas where idCategoria=@tipo)
-
-	if(@titulo!='' and @cat>0)
+	
+	if(@titulo!='' and exists(select idCategoria from Categorias_Revistas where idCategoria=@tipo))
 	begin
-	     select *from Revistas where titulo=@titulo and tipo=@cat 
+	     select *from Revistas where titulo like @titulo+'%' and tipo=@tipo
 	end
 	else
 	     begin
@@ -287,7 +350,7 @@ create proc  BuscarRevista
 			      select *from Revistas where titulo like @titulo+'%'
 			   end
 			   else
-			       select *from Revistas where tipo=@cat 
+			       select *from Revistas where tipo=@tipo
 		 end
 	 
 go
@@ -330,14 +393,14 @@ go
 
 
 go
-create proc InsertarRevistas 
+alter proc InsertarRevistas 
  @issn char(14),@titulo nvarchar(14),@numF int,
- @vol int,@fecha date,@editorial int,@tipo int,
+ @vol int,@fecha date,@editorial int,@existencia int,@tipo int,
  @idioma char(3),@temas text
  as
 
- insert into Revistas (ISSN,titulo,numeroFasciculos,volumen,publicacion,Editorial,tipo,idioma,temas)
- values (@issn,@titulo,@numF,@vol,@fecha,@editorial,@tipo,@idioma,@temas)
+ insert into Revistas (ISSN,titulo,numeroFasciculos,volumen,publicacion,Editorial,existencia,tipo,idioma,temas)
+ values (@issn,@titulo,@numF,@vol,@fecha,@editorial,@existencia,@tipo,@idioma,@temas)
 
 go
 
@@ -372,8 +435,8 @@ as
 go
 
 go
-create proc InsertarLibros
- @ISBN char(13), @titulo nvarchar(14),@fecha date,@cat int,@editorial int, @existencia int
+alter proc InsertarLibros
+ @ISBN char(13), @titulo nvarchar(14),@fecha date,@cat int,@editorial int,@existencia int 
  , @idioma varchar(30), @paginas int, @desc text
  as
   
