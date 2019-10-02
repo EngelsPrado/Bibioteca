@@ -1,11 +1,6 @@
-<<<<<<< HEAD
+
 /build
 /dist
 /nbproject
 /test
-=======
-build/
-nbproject/
-build/
-test/
->>>>>>> 7ad347a28d71de78393f66d45745ddbc1ed7e679
+
