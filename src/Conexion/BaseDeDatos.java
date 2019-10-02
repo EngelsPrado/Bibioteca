@@ -41,9 +41,9 @@ public class BaseDeDatos
         boolean valor;
         try {
              c=DriverManager.getConnection(url);
-            System.out.println("Entra");
+       
            valor=InicioSesion(user,contra);
-            System.out.println(valor);
+         
            if(valor==true)
                return true;
            
@@ -91,14 +91,14 @@ public class BaseDeDatos
         return sentencia;
     }
     
-    public void insertar_autor(String procedimiento_datos,String idautor,String autor)
+    public void insertar_autor(String procedimiento_datos,String autor)
     {
         CallableStatement sentencia = null;
         try 
         {
             sentencia=c.prepareCall("{call "+procedimiento_datos+"}");
-            sentencia.setString(1, idautor);
-            sentencia.setString(2, autor);
+        
+            sentencia.setString(1, autor);
             
             sentencia.execute();
             sentencia.close();
@@ -117,6 +117,23 @@ public class BaseDeDatos
             sentencia=c.prepareCall("{call "+procedimieto_datos+"}");
             sentencia.setString(1, categoria);
             
+            sentencia.execute();
+            sentencia.close();
+            JOptionPane.showMessageDialog(null, "La nueva Categoria se ha creado");
+        } catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al insertar datos en la Tabla\n"+ex.getMessage());
+        }
+    }
+    
+     public void LibrosAutores(String procedimieto_datos,String isbn,int id)
+    {
+        CallableStatement sentencia = null;
+        try 
+        {
+            sentencia=c.prepareCall("{call "+procedimieto_datos+"}");
+            sentencia.setString(1, isbn);
+             sentencia.setInt(1, id);  
             sentencia.execute();
             sentencia.close();
             JOptionPane.showMessageDialog(null, "La nueva Categoria se ha creado");
@@ -323,6 +340,22 @@ public class BaseDeDatos
             sentencia.setInt(2,categoria);
             
             JOptionPane.showMessageDialog(null, "Peticion Realizada");
+        }catch(SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error, Error\n"+ex.getMessage());
+        }       
+        return sentencia;
+    }
+    
+     
+    public CallableStatement MostrarAutores(String procedimiento)
+    {
+        CallableStatement sentencia=null;
+        try
+        {
+            sentencia=c.prepareCall("{call " + procedimiento+"}");
+            
+             
         }catch(SQLException ex) 
         {
             JOptionPane.showMessageDialog(null, "Error, Error\n"+ex.getMessage());
